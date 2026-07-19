@@ -1,5 +1,6 @@
 {% set name = "morphops" %}
 {% set version = "0.2.0" %}
+{% set python_min = "3.12" %}
 
 package:
   name: {{ name|lower }}
@@ -12,17 +13,17 @@ source:
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python {{ python_min }}.*
     - pip
-    - setuptools
+    - setuptools >=77.0.3
   run:
     - python >={{ python_min }}
-    - numpy >=1.13.3
-    - scipy >=1.3.3
+    - numpy >=1.26
+    - scipy >=1.12
 
 test:
   imports:
@@ -32,11 +33,9 @@ test:
     - morphops.procrustes
     - morphops.tps
   requires:
-    - coverage
-    - pytest
-    - pytest-cov
+    - pytest >=8
     - pip
-    - python {{ python_min }}
+    - python {{ python_min }}.*
   commands:
     - pip check
     - pytest --pyargs morphops
