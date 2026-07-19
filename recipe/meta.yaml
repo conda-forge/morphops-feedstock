@@ -1,5 +1,5 @@
 {% set name = "morphops" %}
-{% set version = "0.1.13" %}
+{% set version = "0.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0ed12193d59bbbdefb1871a9147ff90a4d87b331b53130789bd7acedbc47a09f
+  sha256: f9929eb28b9cbe70b13f33b7d6ce1046aa9591ec64972ee342c4a6b77f4d5dda
 
 build:
   noarch: python
-  number: 1
+  number: 0
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
