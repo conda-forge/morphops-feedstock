@@ -1,5 +1,6 @@
 {% set name = "morphops" %}
-{% set version = "0.1.13" %}
+{% set version = "0.2.0" %}
+{% set python_min = "3.12" %}
 
 package:
   name: {{ name|lower }}
@@ -7,22 +8,22 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0ed12193d59bbbdefb1871a9147ff90a4d87b331b53130789bd7acedbc47a09f
+  sha256: f9929eb28b9cbe70b13f33b7d6ce1046aa9591ec64972ee342c4a6b77f4d5dda
 
 build:
   noarch: python
-  number: 1
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python {{ python_min }}.*
     - pip
-    - setuptools
+    - setuptools >=77.0.3
   run:
     - python >={{ python_min }}
-    - numpy >=1.13.3
-    - scipy >=1.3.3
+    - numpy >=1.26
+    - scipy >=1.12
 
 test:
   imports:
@@ -32,11 +33,9 @@ test:
     - morphops.procrustes
     - morphops.tps
   requires:
-    - coverage
-    - pytest
-    - pytest-cov
+    - pytest >=8
     - pip
-    - python {{ python_min }}
+    - python {{ python_min }}.*
   commands:
     - pip check
     - pytest --pyargs morphops
